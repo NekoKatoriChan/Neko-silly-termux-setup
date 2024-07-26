@@ -1,12 +1,14 @@
 #!/bin/bash
 rm .bashrc
 clear
+pkg update && pkg i x11-repo wget git
 while true; do
     echo "Nhập tên của bạn:"
  read user
     clear
 sleep 1
     echo  "Bây giờ, bạn tên là $user."
+sleep 3
 clear
 sleep 1
     echo "Bạn chắc chắn muốn dùng tên này chứ ? (C/k) :"
@@ -49,9 +51,13 @@ curl -s -o ~/x https://raw.githubusercontent.com/NekoKatoriChan/mobox/main/insta
 sleep 3
 git clone --depth=1 https://github.com/adi1090x/polybar-themes.git && bash ~/polybar-themes/setup.sh
 		sleep 2
+mkdir ~/.config/i3/
 mv ~/Neko-silly-termux-setup/config ~/.config/i3/
 mv ~/Neko-silly-termux-setup/Arch-chan_to.png ~/
 rm -rf ~/Neko-silly-termux-setup
+
+rm uwu.gz
+
 
 	elif [ "$i" = "K" ] || [ "$i" = "k" ]; then
     return 0
