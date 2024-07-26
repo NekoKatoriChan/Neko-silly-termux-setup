@@ -57,7 +57,7 @@ mv ~/Neko-silly-termux-setup/Arch-chan_to.png ~/
 rm -rf ~/Neko-silly-termux-setup
 
 rm uwu.gz
-
+rm setup
 
 	elif [ "$i" = "K" ] || [ "$i" = "k" ]; then
     return 0
