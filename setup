@@ -36,7 +36,7 @@ clear
 elif [ "$i" = "K" ] || [ "$i" = "k" ]; then
     return 0
 fi
-		echo "Bạn có muốn cài đặt toàn bộ setup của C-Kakao chứ ? (Bao gồm mobox, pd, proot, i3 config v.v) :"
+		echo "Bạn có muốn cài đặt toàn bộ setup của C-Kakao chứ ? (Bao gồm mobox, pd, proot, i3 config v.v) (C/k):"
 read a
 
 if [ "$a" = "C" ] || [ "$a" = "c" ]; then
