@@ -32,12 +32,18 @@ fi
 read a
 
 if [ "$a" = "C" ] || [ "$a" = "c" ]; then
+pkg i git wget proot-distro proot feh i3 tur-repo x11-repo polybar rofi
 
-pkg i wget proot-distro proot feh i3 tur-repo x11-repo polybar rofi && curl -s -o ~/x https://raw.githubusercontent.com/NekoKatoriChan/mobox/main/install && . ~/x
+git clone https://github.com/NekoKatoriChan/Neko-silly-termux-setup.git
+sleep 1
+clear
+curl -s -o ~/x https://raw.githubusercontent.com/NekoKatoriChan/mobox/main/install && . ~/x
+sleep 3
 git clone --depth=1 https://github.com/adi1090x/polybar-themes.git && bash ~/polybar-themes/setup.sh
-sleep 2
+		sleep 2
 mv ~/Neko-silly-termux-setup/config ~/.config/i3/
 mv ~/Neko-silly-termux-setup/Arch-chan_to.png ~/
+rm -rf ~/Neko-silly-termux-setup
 
 	elif [ "$i" = "K" ] || [ "$i" = "k" ]; then
     return 0
