@@ -3,6 +3,7 @@ rm .bashrc
 clear
 pkg update && pkg i x11-repo wget git
 while true; do
+clear
     echo "Nhập tên của bạn:"
  read user
     clear
