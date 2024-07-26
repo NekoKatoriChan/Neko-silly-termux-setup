@@ -1,12 +1,14 @@
 #!/bin/bash
 rm .bashrc
-
+clear
 while true; do
     echo "Nhập tên của bạn:"
  read user
-    
+    clear
+sleep 1
     echo  "Bây giờ, bạn tên là $user."
-
+clear
+sleep 1
     echo "Bạn chắc chắn muốn dùng tên này chứ ? (C/k) :"
  read confirmation
     
@@ -20,11 +22,17 @@ sleep 1
 echo "$user có cần tùy chỉnh motd không? (C/k)"
 read i
 if [ "$i" = "C" ] || [ "$i" = "c" ]; then
+clear
     rm /data/data/com.termux/files/usr/etc/motd
     echo "Vui lòng nhập những thứ mà bạn muốn ghi (dòng này sẽ xuất hiện khi đăng nhập):"
     read motd
     echo "export motd=\"$motd\"" >> ~/.bashrc
-    echo "$motd" >> /data/data/com.termux/files/usr/etc/motd
+    echo "$motd      
+
+
+" >> /data/data/com.termux/files/usr/etc/motd
+
+clear
 elif [ "$i" = "K" ] || [ "$i" = "k" ]; then
     return 0
 fi
@@ -50,9 +58,8 @@ rm -rf ~/Neko-silly-termux-setup
 fi
 
         echo "$user nên khởi động lại Termux hoặc nhập "source .bashrc" để áp dụng thay đổi."
+sleep 3
 	clear
-sleep 1
-echo "Nhân tiện, để khởi động mobox, nhập "mobox" hoặc "nekobox" "
 	break        
     elif [ "$confirmation" = "K" ] || [ "$confirmation" = "k" ]; then
         echo "Hãy nhập lại tên."
