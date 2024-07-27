@@ -50,9 +50,10 @@ clear
 curl -s -o ~/x https://raw.githubusercontent.com/NekoKatoriChan/mobox/main/install && . ~/x
 sleep 3
 		sleep 2
+wget https://raw.githubusercontent.com/NekoKatoriChan/Neko-silly-termux-setup/main/file/config
+wget https://github.com/NekoKatoriChan/Neko-silly-termux-setup/raw/main/file/Arch-chan_to.png
 mkdir ~/.config/i3/
-mv ~/Neko-silly-termux-setup/config ~/.config/i3/
-mv ~/Neko-silly-termux-setup/Arch-chan_to.png ~/
+mv ~/config ~/.config/i3/
 rm -rf ~/Neko-silly-termux-setup
 
 rm uwu.gz
