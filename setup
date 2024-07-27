@@ -52,9 +52,9 @@ sleep 3
 		sleep 2
 wget https://raw.githubusercontent.com/NekoKatoriChan/Neko-silly-termux-setup/main/file/config
 wget https://github.com/NekoKatoriChan/Neko-silly-termux-setup/raw/main/file/Arch-chan_to.png
+mkdir .config
 mkdir ~/.config/i3/
 mv ~/config ~/.config/i3/
-rm -rf ~/Neko-silly-termux-setup
 
 rm uwu.gz
 rm setup
