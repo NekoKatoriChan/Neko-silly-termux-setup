@@ -195,10 +195,3 @@ modifier Mod1
 bindsym $mod+m floating toggle
 
 exec_always --no-startup-id feh --bg-center /data/data/com.termux/files/home/Arch-chan_to.png
-
-exec_always --no-startup-id "bash ~/.config/polybar/launch.sh --hack"
-
-
-bindsym Mod1+q exec --no-startup-id wine start
-
-bindsym Mod1+Shift+S exec --no-startup-id wine start
