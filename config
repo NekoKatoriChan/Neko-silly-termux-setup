@@ -1,0 +1,222 @@
+#!/bin/bash
+
+trap 'main_menu' SIGINT
+
+main_menu() {
+    clear
+    echo "Chào mừng trở lại, $USER! Vui lòng chọn một trong những lựa chọn bên dưới."
+    echo ""
+    echo "[1] Chạy mobox"
+    echo "[2] Chạy desktop"
+    echo "[3] Cài đặt cơ bản"
+    echo "[4] Chế độ terminal"
+    echo "[5] Trình quản lý gói"
+    echo "[0] Thoát"
+    echo ""
+    read -p "Lựa chọn của bạn : " a
+    case $a in
+        1) run_mobox;;
+        2) run_desktop;;
+        3) run_settings;;
+        4) run_terminal;;
+        5) package_manager;;
+        0) echo "Bye~ gặp lại sau nhé"; pkill -9 -u $(whoami);;
+        *) echo "Lựa chọn không hợp lệ"; pause;;
+    esac
+}
+
+run_mobox() {
+    clear
+    (mobox)
+    pause
+}
+
+run_desktop() {
+    clear
+    echo "Các desktop khả dụng"
+    echo ""
+    echo "[1] XFCE4"
+    echo "[2] i3"
+    echo "[3] bspwm"
+    echo "[4] LXQt"
+    echo "[5] Awesome WM"
+    echo "[6] Gỡ cài đặt desktop"
+    echo "[7] Trở về"
+    echo ""
+    read -p "Chọn desktop để khởi động: " a
+
+    case $a in
+        1)
+            XFCE="$HOME/.xfce_installed"
+            if [ ! -f "$XFCE" ]; then
+                echo "Vui lòng đợi, quá trình cài đặt XFCE4 sẽ tốn vài phút..."
+                pkg install xfce4 -y &> /dev/null
+                touch "$XFCE"
+                echo "Cài đặt XFCE4 hoàn tất. Khởi động XFCE4..."
+            fi
+            termux-x11 -xstartup startxfce4
+            ;;
+        2)
+            I3="$HOME/.i3_installed"
+            if [ ! -f "$I3" ]; then
+                echo "Vui lòng đợi, quá trình cài đặt i3 sẽ tốn vài phút..."
+                pkg install i3 -y &> /dev/null
+                touch "$I3"
+                echo "Cài đặt i3 hoàn tất. Khởi động i3..."
+            fi
+            termux-x11 -xstartup i3
+            ;;
+        3)
+            BSPWM="$HOME/.bspwm_installed"
+            if [ ! -f "$BSPWM" ]; then
+                echo "Vui lòng đợi, quá trình cài đặt bspwm sẽ tốn vài phút..."
+                pkg install bspwm -y &> /dev/null
+                touch "$BSPWM"
+                echo "Cài đặt bspwm hoàn tất. Khởi động bspwm..."
+            fi
+            termux-x11 -xstartup bspwm
+            ;;
+        4)
+            LXQT="$HOME/.lxqt_installed"
+            if [ ! -f "$LXQT" ]; then
+                echo "Vui lòng đợi, quá trình cài đặt LXQt sẽ tốn vài phút..."
+                pkg install lxqt -y &> /dev/null
+                touch "$LXQT"
+                echo "Cài đặt LXQt hoàn tất. Khởi động LXQt..."
+            fi
+            termux-x11 -xstartup startlxqt
+            ;;
+        5)
+            AWESOME="$HOME/.awesome_installed"
+            if [ ! -f "$AWESOME" ]; then
+                echo "Vui lòng đợi, quá trình cài đặt Awesome WM sẽ tốn vài phút..."
+                pkg install awesome -y &> /dev/null
+                touch "$AWESOME"
+                echo "Cài đặt Awesome WM hoàn tất. Khởi động Awesome WM..."
+            fi
+            termux-x11 -xstartup awesome
+            ;;
+        6) remove_desktop;;
+        7) main_menu;;
+        *)
+            echo "Lựa chọn không hợp lệ!"
+            ;;
+    esac
+}
+
+remove_desktop() {
+    echo "Gỡ desktop khả dụng"
+    echo ""
+    echo "[1] XFCE4"
+    echo "[2] i3"
+    echo "[3] bspwm"
+    echo "[4] LXQt"
+    echo "[5] Awesome WM"
+    echo "[6] Trở về"
+    read -p "Chọn lựa chọn của bạn" remove
+    case $remove in
+        1) pkg remove xfce4 -y; rm $HOME/.xfce_installed;;
+        2) pkg remove i3 -y; rm $HOME/.i3_installed;;
+        3) pkg remove bspwm -y; rm $HOME/.bspwm_installed;;
+        4) pkg remove lxqt -y; rm $HOME/.lxqt_installed;;
+        5) pkg remove awesome -y; rm $HOME/.awesome_installed;;
+        6) run_desktop;;
+    esac
+    main_menu
+}
+
+run_settings() {
+    clear
+    echo "Cài đặt cơ bản cho Termux"
+    echo "[1] Cài đặt Git"
+    echo "[2] Cài đặt các công cụ cơ bản (curl, wget, vim, nano)"
+    echo "[0] Quay lại menu chính"
+    echo ""
+    read -p "Lựa chọn của bạn: " a
+    case $a in
+        1) install_git;;
+        2) install_basic_tools;;
+        0) main_menu;;
+        *) echo "Lựa chọn không hợp lệ!"; pause; run_settings;;
+    esac
+}
+
+install_git() {
+    echo "Đang cài đặt Git..."
+    pkg install git -y &> /dev/null
+    echo "Cài đặt Git hoàn tất."
+
+    # Cấu hình Git với thông tin người dùng (nếu chưa có)
+    read -p "Nhập tên người dùng Github: " git_name
+    git config --global user.name "$git_name"
+
+    read -p "Nhập email người dùng Github: " git_email
+    git config --global user.email "$git_email"
+
+    # Xác nhận thông tin đã được lưu
+    echo "Cấu hình Git đã hoàn tất. Thông tin người dùng:"
+    git config --global --list
+
+    sleep 3
+}
+
+install_basic_tools() {
+    echo "Đang cài đặt các công cụ cơ bản..."
+    pkg install curl wget vim nano -y &> /dev/null
+    echo "Cài đặt các công cụ cơ bản hoàn tất."
+    sleep 2
+}
+
+run_terminal() {
+    clear
+    echo "Bạn đang vào chế độ terminal. Bạn có thể thực hiện các lệnh trực tiếp."
+    echo "Để quay lại menu chính, gõ 'exit'."
+while true; do
+        read -p "$user >> " cmd
+        if [[ "$cmd" == "exit" ]]; then
+            main_menu
+            break
+        else
+            $cmd
+        fi
+    done
+
+
+
+}
+
+package_manager() {
+    clear
+    echo "Trình quản lý gói"
+    echo ""
+    echo "[1] Cập nhật kho lưu trữ"
+    echo "[2] Cài gói"
+    echo "[3] Gỡ cài đặt gói"
+    read -p "Lựa chọn của bạn: " a
+    case $a in
+        1) pkg update; pkg upgrade; package_manager;;
+        2) install;;
+        3) uninstall;;
+        *) echo "Lựa chọn không hợp lệ"; package_manager;;
+    esac
+}
+
+install() {
+    clear
+    echo "Vui lòng nhập gói cần tải (vd: nano)"
+    read i
+    pkg install $i -y
+    package_manager
+}
+
+uninstall() {
+    clear
+    echo "Vui lòng nhập gói cần gỡ"
+    read r
+    pkg remove $r -y
+    package_manager
+}
+
+while true; do
+    main_menu
+done
