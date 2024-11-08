@@ -26,7 +26,7 @@ while true; do
 
         # Ghi tên vào .bashrc và thiết lập prompt
         echo "export USER=\"$user\"" >> ~/.bashrc
-        echo "PS1='\e[38;5;13m$user \e[38;5;11m\w\e[m \e[38;5;10m> \e[m'" >> ~/.bashrc
+        echo "PS1='\[\e[38;5;13m\]$user \[\e[38;5;11m\]\w\[\e[m\] \[\e[38;5;10m\]> \[\e[m\]'" >> .bashrc
         clear
         sleep 1
 
