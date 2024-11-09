@@ -1,13 +1,10 @@
 #!/bin/bash
-
-# Xóa file .bashrc hiện tại
+rm setup-testimg
 rm -f ~/.bashrc
 clear
 
-# Cập nhật và cài đặt các gói cần thiết
-pkg update && pkg install -y x11-repo wget git && pkg install termux-x11-nightly
+pkg update && pkg install -y x11-repo wget git && pkg install termux-x11-nightly && pkg upgrade -y
 
-# Vòng lặp yêu cầu nhập tên
 while true; do
     clear
     echo "Nhập tên của bạn:"
@@ -21,16 +18,13 @@ while true; do
     echo "Bạn chắc chắn muốn dùng tên này chứ ? (C/k) :"
     read confirmation
 
-    # Kiểm tra xác nhận
     if [[ "$confirmation" == "C" || "$confirmation" == "c" ]]; then
 
-        # Ghi tên vào .bashrc và thiết lập prompt
         echo "export USER=\"$user\"" >> ~/.bashrc
         echo "PS1='\[\e[38;5;13m\]$user \[\e[38;5;11m\]\w\[\e[m\] \[\e[38;5;10m\]> \[\e[m\]'" >> .bashrc
         clear
         sleep 1
 
-        # Tùy chọn tùy chỉnh motd
         echo "$user có cần tùy chỉnh motd không? (C/k)"
         read i
         if [[ "$i" == "C" || "$i" == "c" ]]; then
@@ -45,11 +39,10 @@ while true; do
             return 0
         fi
 
-        # Tùy chọn Termux thân thiện hơn
         echo "Bạn có muốn Termux dễ dùng hơn không? (C/k):"
         read a
         if [[ "$a" == "C" || "$a" == "c" ]]; then
-            wget https://raw.githubusercontent.com/NekoKatoriChan/Neko-silly-termux-setup/refs/heads/main/config -O meow
+            wget https://raw.githubusercontent.com/NekoKatoriChan/Neko-silly-termux-setup/refs/heads/main/config-testing -O meow
             chmod +x meow
             mv meow $PREFIX/bin/
             echo 'echo "Để mở giao diện dễ dùng, hãy nhập \"meow\" nhá :3"' >> ~/.bashrc
@@ -57,7 +50,6 @@ while true; do
             return 0
         fi
 
-        # Thông báo cho người dùng về cách áp dụng thay đổi
         echo "$user nên khởi động lại Termux hoặc nhập 'source ~/.bashrc' để áp dụng thay đổi."
         sleep 3
         clear
